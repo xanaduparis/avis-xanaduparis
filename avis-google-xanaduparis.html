@@ -2,8 +2,8 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Laissez un avis - Xanadu</title>
   <style>
     body {
@@ -39,6 +39,7 @@
       border-radius: 12px;
       transition: background-color 0.3s ease;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      cursor: pointer;
     }
     .button:hover {
       background-color: #a98d5f;
@@ -51,6 +52,7 @@
       max-width: 520px;
       border-radius: 14px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      text-align: left;
     }
     ol {
       padding-left: 0;
@@ -100,16 +102,26 @@
     </ol>
   </div>
 
-  <a href="https://search.google.com/local/writereview?placeid=ChIJxSZXLvBv5kcRCmkxfoGEw2Q" target="_blank" class="button">Laisser un avis Google / Leave a Google Review</a>
+  <a href="https://search.google.com/local/writereview?placeid=ChIJxSZXLvBv5kcRCmkxfoGEw2Q" target="_blank" class="button" id="leave-review-btn">Laisser un avis Google / Leave a Google Review</a>
 
   <div id="wheel-btn">
     <a href="https://pickerwheel.com/pw?id=VbFAu" class="button">Tourner la roue 🎡 / Spin the wheel 🎡</a>
   </div>
 
   <script>
-    setTimeout(() => {
+    function showWheelButton() {
       document.getElementById("wheel-btn").style.display = "block";
-    }, 30000);
+    }
+
+    // Affiche le bouton après 10 secondes
+    setTimeout(showWheelButton, 10000);
+
+    // Affiche le bouton dès que l’onglet redevient visible (retour client)
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) {
+        showWheelButton();
+      }
+    });
   </script>
 </body>
 </html>
