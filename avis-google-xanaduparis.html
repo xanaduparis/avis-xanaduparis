@@ -96,8 +96,8 @@
         <span class="subtext">Come back to this page (it stays open).</span>
       </li>
       <li>
-        Le bouton “Tourner la roue” est déjà disponible 🎉<br>
-        <span class="subtext">The “Spin the Wheel” button is already available 🎉</span>
+        Le bouton “Tourner la roue” apparaîtra après quelques instants 🎉<br>
+        <span class="subtext">The “Spin the Wheel” button will appear after a few seconds 🎉</span>
       </li>
     </ol>
   </div>
@@ -105,7 +105,7 @@
   <a href="https://search.google.com/local/writereview?placeid=ChIJxSZXLvBv5kcRCmkxfoGEw2Q" target="_blank" class="button" id="leave-review-btn">Laisser un avis Google / Leave a Google Review</a>
 
   <div id="wheel-btn">
-    <a href="https://pickerwheel.com/pw?id=VbFAu" class="button">Tourner la roue 🎡 / Spin the wheel 🎡</a>
+    <a href="https://pickerwheel.com/pw?id=Z8XjN" class="button">Tourner la roue 🎡 / Spin the wheel 🎡</a>
   </div>
 
   <script>
@@ -113,13 +113,24 @@
       document.getElementById("wheel-btn").style.display = "block";
     }
 
-    // Affiche le bouton immédiatement
-    showWheelButton();
+    // Vérifier si l'utilisateur a déjà cliqué sur "Laisser un avis"
+    if (localStorage.getItem("reviewLeft") === "true") {
+      showWheelButton();
+    }
 
-    // Affiche le bouton dès que l’onglet redevient visible (retour client)
-    document.addEventListener("visibilitychange", () => {
+    // Au clic sur le bouton "Laisser un avis", enregistrer dans localStorage
+    document.getElementById("leave-review-btn").addEventListener("click", function() {
+      localStorage.setItem("reviewLeft", "true");
+      window.open(this.href, "_blank");
+      return false; // empêcher le comportement par défaut pour ouvrir en JS
+    });
+
+    // Affiche le bouton aussi au retour sur la page
+    document.addEventListener("visibilitychange", function() {
       if (!document.hidden) {
-        showWheelButton();
+        if (localStorage.getItem("reviewLeft") === "true") {
+          showWheelButton();
+        }
       }
     });
   </script>
